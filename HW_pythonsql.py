@@ -144,17 +144,18 @@ def find_client(conn, first_name=None, last_name=None, email=None, phone=None):
             print('Информация о клиенте: ', ' '.join([i for i in client_info[1:]]), '\nЗарегистрированные номера телефонов: ', ' '.join([i[0] for i in number]))
 
 
-with psycopg2.connect(database="PersonalData", user="postgres", password="postgres") as conn:
-    create_db(conn)
-    add_client(conn, 'Daria', 'Korotkova', 'dasha1235@example.com', phones=['89045974659'])
-    add_client(conn, 'Ivan', 'Ivanov', 'ii1235@example.com', phones=['89045975555'])
+if __name__ == "__main__":
+    with psycopg2.connect(database="PersonalData", user="postgres", password="postgres") as conn:
+        create_db(conn)
+        add_client(conn, 'Daria', 'Korotkova', 'dasha1235@example.com', phones=['89045974659'])
+        add_client(conn, 'Ivan', 'Ivanov', 'ii1235@example.com', phones=['89045975555'])
 
-    add_phone(conn, 1, '49151503593')
+        add_phone(conn, 1, '49151503593')
 
-    change_client(conn, 1, first_name='Alexandra', last_name='Ivanova', email='sahsa@gmail.com', phone_to_update='89045974659',
-                      new_phone='89045975554')
-    delete_phone(conn, 1, '89045975555')
-    delete_client(conn, 2)
-    find_client(conn, phone='89045975554')
+        change_client(conn, 1, first_name='Alexandra', last_name='Ivanova', email='sahsa@gmail.com', phone_to_update='89045974659',
+                          new_phone='89045975554')
+        delete_phone(conn, 1, '89045975555')
+        delete_client(conn, 2)
+        find_client(conn, phone='89045975554')
 
-conn.close()
+# conn.close()
